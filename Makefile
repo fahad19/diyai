@@ -8,3 +8,4 @@ release:
 	npm run dist
 	npm version $(VERSION)
 	npm publish
+	git push origin master --follow-tags
