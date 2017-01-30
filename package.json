@@ -1,0 +1,46 @@
+{
+  "name": "diyai",
+  "version": "0.0.1",
+  "description": "Dependency Injection (DI) made easy in JavaScript/ES6",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint src/**/*.js test/**/*.js",
+    "test": "mocha",
+    "cover": "nyc --require babel-register mocha",
+    "transpile": "babel src --out-dir lib",
+    "dist:lib": "webpack --config ./dist/webpack.config.js",
+    "dist:min": "uglifyjs dist/diyai.js --output dist/diyai.min.js",
+    "dist": "npm run dist:lib && npm run dist:min"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fahad19/diyai.git"
+  },
+  "author": {
+    "name": "Fahad Ibnay Heylaal",
+    "url": "https://github.com/fahad19"
+  },
+  "keywords": [
+    "dependency",
+    "injection",
+    "di",
+    "container",
+    "injector"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.22.2",
+    "babel-core": "^6.22.1",
+    "babel-eslint": "^7.1.1",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-stage-0": "^6.22.0",
+    "babel-register": "^6.22.0",
+    "chai": "^3.5.0",
+    "eslint": "^3.14.1",
+    "mocha": "^3.2.0",
+    "nyc": "^10.1.2",
+    "rimraf": "^2.5.4",
+    "uglify-js": "^2.7.5",
+    "webpack": "^1.14.0"
+  }
+}
