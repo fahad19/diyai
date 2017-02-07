@@ -17,6 +17,7 @@ export default function createContainer(providers = [], opts = {}) {
     }
 
     getDeps(provider) {
+      const { name } = provider;
       const depsInstances = {};
 
       if (Array.isArray(provider.deps)) {
