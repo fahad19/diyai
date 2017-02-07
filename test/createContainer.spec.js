@@ -145,4 +145,22 @@ describe('createContainer', function () {
     expect(container.get('bar').text()).to.equal('bar value');
     expect(container.get('bar').fooText()).to.equal('foo value');
   });
+
+  it('creates Container with values coming from factories, by passing dependencies', function () {
+    const Container = createContainer([
+      { name: 'foo', useFactory: () => 'foo value' },
+      {
+        name: 'bar',
+        useFactory: ({ foo }) => {
+          return 'bar value, ' + foo;
+        },
+        deps: [ 'foo' ],
+      },
+    ]);
+
+    const container = resolveContainer(Container);
+
+    expect(container.get('foo')).to.equal('foo value');
+    expect(container.get('bar')).to.equal('bar value, foo value');
+  });
 });

@@ -16,6 +16,32 @@ export default function createContainer(providers = [], opts = {}) {
       });
     }
 
+    getDeps(provider) {
+      const depsInstances = {};
+
+      if (Array.isArray(provider.deps)) {
+        provider.deps.forEach((depName) => {
+          if (!(depName in this.registry)) {
+            throw new Error(`For provider '${name}', dependency '${depName}' is not available yet.`);
+          }
+
+          depsInstances[depName] = this.registry[depName];
+        });
+      } else if (typeof provider.deps === 'object') {
+        Object.keys(provider.deps)
+          .forEach((containerDepName) => {
+            if (!(containerDepName in this.registry)) {
+              throw new Error(`For provider '${name}', dependency '${containerDepName}' is not available yet.`);
+            }
+
+            const targetDepName = provider.deps[containerDepName];
+            depsInstances[targetDepName] = this.registry[containerDepName];
+          });
+      }
+
+      return depsInstances;
+    }
+
     register(provider) {
       if (typeof provider.name !== 'string') {
         throw new Error(`Provider has no 'name' key.`);
@@ -26,31 +52,9 @@ export default function createContainer(providers = [], opts = {}) {
       if ('useValue' in provider) {
         this.registry[name] = provider.useValue;
       } else if ('useFactory' in provider) {
-        this.registry[name] = provider.useFactory();
+        this.registry[name] = provider.useFactory(this.getDeps(provider));
       } else if ('useClass' in provider) {
-        const depsInstances = {}; // @TODO
-
-        if (Array.isArray(provider.deps)) {
-          provider.deps.forEach((depName) => {
-            if (!(depName in this.registry)) {
-              throw new Error(`For provider '${name}', dependency '${depName}' is not available yet.`);
-            }
-
-            depsInstances[depName] = this.registry[depName];
-          });
-        } else if (typeof provider.deps === 'object') {
-          Object.keys(provider.deps)
-            .forEach((containerDepName) => {
-              if (!(containerDepName in this.registry)) {
-                throw new Error(`For provider '${name}', dependency '${containerDepName}' is not available yet.`);
-              }
-
-              const targetDepName = provider.deps[containerDepName];
-              depsInstances[targetDepName] = this.registry[containerDepName];
-            });
-        }
-
-        this.registry[name] = new provider.useClass(depsInstances);
+        this.registry[name] = new provider.useClass(this.getDeps(provider));
       } else {
         throw new Error(`No value given for '${name}' provider.`)
       }
