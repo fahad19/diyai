@@ -163,4 +163,29 @@ describe('createContainer', function () {
     expect(container.get('foo')).to.equal('foo value');
     expect(container.get('bar')).to.equal('bar value, foo value');
   });
+
+  it('gets self by container key name', function () {
+    const Container = createContainer([
+      { name: 'foo', useFactory: () => 'foo value' },
+    ]);
+
+    const container = resolveContainer(Container);
+
+    expect(container.get('foo')).to.equal('foo value');
+    expect(container.get('container')).to.deep.equal(container);
+  });
+
+
+  it('gets self by custom container key name', function () {
+    const Container = createContainer([
+      { name: 'foo', useFactory: () => 'foo value' },
+    ], {
+      containerName: 'customContainerName',
+    });
+
+    const container = resolveContainer(Container);
+
+    expect(container.get('foo')).to.equal('foo value');
+    expect(container.get('customContainerName')).to.deep.equal(container);
+  });
 });

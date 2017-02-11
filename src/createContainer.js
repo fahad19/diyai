@@ -7,9 +7,10 @@ export default function createContainer(providers = [], opts = {}) {
   class Container {
     constructor() {
       // name ==> instance
-      this.registry = {
-        [options.containerName]: this
-      };
+      this.registry = {};
+      Object.defineProperty(this.registry, options.containerName, {
+        get: () => this
+      });
 
       providers.forEach((provider) => {
         this.register(provider);
