@@ -1,6 +1,6 @@
 {
   "name": "diyai",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "Dependency Injection (DI) made easy in JavaScript/ES6",
   "main": "index.js",
   "scripts": {
