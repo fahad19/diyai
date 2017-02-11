@@ -2,7 +2,7 @@
 
 > Dependency Injection (DI) made easy in JavaScript/ES6
 
-[![Build Status](https://img.shields.io/travis/fahad19/diyai/master.svg)](http://travis-ci.org/fahad19/diyai) [![npm](https://img.shields.io/npm/v/diyai.svg)](https://www.npmjs.com/package/diyai)
+[![npm](https://img.shields.io/npm/v/diyai.svg)](https://www.npmjs.com/package/diyai) [![Build Status](https://img.shields.io/travis/fahad19/diyai/master.svg)](http://travis-ci.org/fahad19/diyai) [![Coverage](https://img.shields.io/coveralls/fahad19/diyai.svg)](https://coveralls.io/github/fahad19/diyai)
 
 ## Installation
 
