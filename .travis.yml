@@ -9,7 +9,7 @@ script:
   - 'npm run transpile'
   - 'npm run dist'
 
-after_success: 'npm run coverage:coveralls'
+after_success: 'npm run coveralls'
 
 notifications:
   email: false
