@@ -127,7 +127,7 @@ class Foo {
 }
 
 class Bar {
-  constructor({ foo }) {
+  constructor({ foo }) { // instance of Foo is given as constructor argument
     this.foo = foo;
   }
 
@@ -201,11 +201,11 @@ A single provider object would contain:
   useFactory: () => 'returned value of any type', OR
   useClass: SomeClass, // created via `createClass` or ES6 classes
 
-  // if `useClass` is used, then `deps` can be provided
+  // if `useClass` or `useFactory` is used, then `deps` can be provided
   deps: ['depName1', 'depName2', ...]
 
   // `deps` can also be an object:
-  deps: { nameInContainer: 'nameExpectedInsideTheClass' }
+  deps: { nameInContainer: 'nameExpectedInArgs' }
 }
 ```
 
