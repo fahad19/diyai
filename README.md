@@ -51,6 +51,20 @@ container.get('foo'); // `foo value`
 container.get('bar'); // `bar value`
 ```
 
+If there is any chance of having a cyclic reference, you can use `useDefinedValue`:
+
+```js
+const myObj = {};
+
+const Container = createContainer([
+  { name: 'myObj', useDefinedValue: myObj }
+]);
+
+myObj.container = resolveContainer(Container);
+```
+
+Doing so would set a self-refernce of `myObj` in `myObj.container.registry.myObj` using `Object.defineProperty` via a getter function.
+
 ### Values from factories
 
 We can also pass functions in the Container definition for the providers, and their returned values will be used as the actual value then.

@@ -57,6 +57,12 @@ export default function createContainer(providers = [], opts = {}) {
         this.registry[name] = provider.useFactory(this.getDeps(provider));
       } else if ('useClass' in provider) {
         this.registry[name] = new provider.useClass(this.getDeps(provider));
+      } else if ('useDefinedValue' in provider) {
+        Object.defineProperty(this.registry, name, {
+          get: () => {
+            return provider.useDefinedValue;
+          }
+        });
       } else {
         throw new Error(`No value given for '${name}' provider.`)
       }
